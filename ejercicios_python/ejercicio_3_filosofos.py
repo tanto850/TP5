@@ -68,7 +68,24 @@ def filosofo(id, rondas=3):
         #
         # TODO: Adquiere los tenedores adyacentes de forma segura, invoca comer(id)
         # y libera los tenedores:
-        pass
+        # Estrategia asimétrica: 
+        # Los pares toman primero el izquierdo, los impares toman primero el derecho
+
+        if id % 2 == 0:
+            primero = tenedor_izq
+            segundo = tenedor_der
+        else:
+            primero = tenedor_der
+            segundo = tenedor_izq
+
+        tenedores[primero].acquire()
+        tenedores[segundo].acquire()
+
+        comer(id)
+
+        tenedores[segundo].release()
+        tenedores[primero].release()
+
         # =========================================================================
         # FIN TODO
         # =========================================================================
